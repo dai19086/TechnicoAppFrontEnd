@@ -1,11 +1,12 @@
 import { JsonPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { UserService } from '../service/user.service';
+import { LoginFormComponent } from "../login-form/login-form.component";
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [JsonPipe],
+  imports: [JsonPipe, LoginFormComponent],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
