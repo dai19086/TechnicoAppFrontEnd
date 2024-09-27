@@ -13,7 +13,6 @@ import { UserService } from '../service/user.service';
 export class LoginFormComponent  implements OnInit {
 
   loginForm!: FormGroup;
-  receivedDataFromLogIn: any;
   userLoggedIn: any;
   logInButtonText = 'Log In';
   errorMessage: string = '';
@@ -40,27 +39,29 @@ export class LoginFormComponent  implements OnInit {
 
   loginUser() {
     this.logInButtonText = 'Logging In...';
+
     //if the form is valid and the necessary fields are filled
     if(this.email && this.password && this.loginForm.valid){
       //initiate log in attempt
       this.apiService.logIn(this.loginForm.value).subscribe({
-        next: response => this.userLoggedIn = response,
+        next: response => {
+          this.userLoggedIn = response;
+          //if (id=-1) it means something went wrong with the logging in at the server
+          if(this.userLoggedIn.ownerId == -1){
+              //the name should contain the error message
+              this.errorMessage = this.userLoggedIn.name;
+              //since it wasn't successful empty the user
+              this.userLoggedIn = null;
+          }else {
+            //if everything's okay hide the error message
+            this.errorMessage = '';
+            //router
+          }
+        },
         error: err => console.error(`ERROR WHILE LOGGING IN... ${err}`),
         complete: () => console.log('Log in stream complete...')
       });
-      //convert the retrived data to an object and check if the log in was successful
-      //if (id=-1) it means something went wrong with the logging in at the server
-      // this.userLoggedIn = JSON.parse(this.receivedDataFromLogIn);
-      // if (this.userLoggedIn.ownerId == -1){
-      //   //the name should contain the error message
-      //   this.errorMessage = this.userLoggedIn.name;
-      //   //since it wasn't successful empty the user
-      //   this.userLoggedIn = null;
-      // }else {
-      //   //if everything's okay hide the error message
-      //   this.errorMessage = '';
-      // }
+      this.logInButtonText = 'Log In';
     }
-    this.logInButtonText = 'Log In';
   }
 }
