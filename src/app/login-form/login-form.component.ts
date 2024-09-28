@@ -2,11 +2,13 @@ import { JsonPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../service/user.service';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { UserDataService } from '../service/user-data.service';
 
 @Component({
   selector: 'app-login-form',
   standalone: true,
-  imports: [ReactiveFormsModule, JsonPipe],
+  imports: [ReactiveFormsModule, JsonPipe, RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.css'
 })
@@ -19,6 +21,8 @@ export class LoginFormComponent  implements OnInit {
 
   fb = inject(FormBuilder);
   private apiService = inject(UserService);
+  router = inject(Router);
+  private userData = inject(UserDataService);
 
   minLen : number = 4;
 
@@ -55,7 +59,8 @@ export class LoginFormComponent  implements OnInit {
           }else {
             //if everything's okay hide the error message
             this.errorMessage = '';
-            //router
+            this.userData.setData('userLoggedIn', this.userLoggedIn);
+            this.router.navigate(['home']);
           }
         },
         error: err => console.error(`ERROR WHILE LOGGING IN... ${err}`),

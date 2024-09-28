@@ -6,7 +6,7 @@
         <div class=" text-danger">Email Required</div>
     }
     @if(email?.hasError('email') && email?.touched){
-        <div class=" text-danger">Email must have a specific format... &#64; </div>
+        <div class=" text-danger">Email must have a specific format... (technico)&#64;(app.ed) </div>
     }
 
     <br><br>
@@ -26,11 +26,10 @@
     <button [disabled]="loginForm.invalid" class="btn btn-success">{{ logInButtonText }}</button>
 </form>
 <br>
+<p>Don't have a profile yet? <a [routerLink]="['/signup']" routerLinkActive="active">Sign Up!</a></p>
+<br>
 @if (errorMessage){
     <div class="container alert-danger">
         <pre>{{ errorMessage }}</pre>
     </div>
 }
-
-<br><br>
-<pre>{{ userLoggedIn | json }}</pre>

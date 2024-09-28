@@ -1,16 +1,58 @@
 <form [formGroup]="signUpForm" (ngSubmit)="signUpUser()" class="alert alert-success">
     <h3 class="text-secondary">Sign Up Form</h3>
 
-    <input type="text" formControlName="email" placeholder="e-mail">
+    <input type="text" formControlName="vatNumber" placeholder="VAT number">
+    @if(vatNumber!.hasError('required') && vatNumber?.touched){
+        <div class=" text-danger">VAT Number is Required</div>
+    }
+    @if(vatNumber?.hasError('pattern') && vatNumber?.touched){
+        <div class=" text-danger">VAT Number must consist of numbers...</div>
+    }
+    <br><br>
+
+    <input type="text" formControlName="name" placeholder="Name">
+    @if(name!.hasError('required') && name?.touched){
+        <div class=" text-danger">Name is Required</div>
+    }
+    @if(name?.hasError('pattern') && name?.touched){
+        <div class=" text-danger">Name must consist of upper or lower case letters...</div>
+    }
+    <br><br>
+
+    <input type="text" formControlName="surname" placeholder="Surname">
+    @if(surname!.hasError('required') && surname?.touched){
+        <div class=" text-danger">Surname is Required</div>
+    }
+    @if(surname?.hasError('pattern') && surname?.touched){
+        <div class=" text-danger">Surname must consist of upper or lower case letters...</div>
+    }
+    <br><br>
+
+    <input type="text" formControlName="address" placeholder="Address">
+    @if(address!.hasError('required') && address?.touched){
+        <div class=" text-danger">Address is Required</div>
+    }
+    <br><br>
+
+    <input type="text" formControlName="phoneNumber" placeholder="Phone number">
+    @if(phoneNumber!.hasError('required') && phoneNumber?.touched){
+        <div class=" text-danger">Phone Number is Required</div>
+    }
+    @if(phoneNumber?.hasError('pattern') && phoneNumber?.touched){
+        <div class=" text-danger">Phone Number must consist of numbers...</div>
+    }
+    <br><br>
+
+    <input type="text" formControlName="email" placeholder="E-mail">
     @if(email!.hasError('required') && email?.touched){
         <div class=" text-danger">Email Required</div>
     }
     @if(email?.hasError('email') && email?.touched){
-        <div class=" text-danger">Email must have a specific format... &#64; </div>
+        <div class=" text-danger">Email must have a specific format... (technico)&#64;(app.ed) </div>
     }
-
     <br><br>
-    <input type="text" formControlName="password" placeholder="enter a password">
+
+    <input type="text" formControlName="password" placeholder="Password">
     @if(password?.hasError('required') && password?.touched){
         <div class=" text-danger">Password is Required</div>
     }
@@ -20,11 +62,26 @@
     @if(password?.hasError('pattern') && password?.touched){
         <div class=" text-danger">Password must have only letters</div>
         }
-
-
     <br><br>
+
+    <select type="text" formControlName="typeOfUser" class="form-select">
+        <option>Select Type of User...</option>
+        @for (type of types; track $index) {
+            <option>{{ type }}</option>
+        }
+    </select>
+    @if(typeOfUser?.hasError('pattern') && typeOfUser?.touched){
+        <div class=" text-danger">Please select a User Type...</div>
+        }
+    <br><br>
+
     <button [disabled]="signUpForm.invalid" class="btn btn-primary">{{ signUpButtonText }}</button>
 </form>
-
-<br><br>
-<pre>{{ signUpForm.value | json }}</pre>
+<br>
+<p>Already Signed Up? <a [routerLink]="['/login']" routerLinkActive="active">Log In!</a></p>
+<br>
+@if (errorMessage){
+    <div class="container alert-danger">
+        <pre>{{ errorMessage }}</pre>
+    </div>
+}

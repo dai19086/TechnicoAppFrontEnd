@@ -1,10 +1,9 @@
-<br><br>
-<div class="container">
-    <div class="row">
-      <div class="col-3"></div>
-      <div class="col-6 d-flex justify-content-center">
-        <app-login-form/>
-      </div>
-      <div class="col-3"></div>
-    </div>
-  </div>
+<div class="container alert alert-info">
+  @if (typeOfUser == 'ADMIN') {
+    <p>ADMIN</p>
+  }@else if (typeOfUser == 'OWNER') {
+    <p>OWNER</p>
+  }@else {
+    <p>{{ message }}</p>
+  }
+</div>

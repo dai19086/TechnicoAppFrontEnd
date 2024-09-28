@@ -1,28 +1,28 @@
 import { JsonPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { UserService } from '../service/user.service';
 import { LoginFormComponent } from "../login-form/login-form.component";
+import { SignupFormComponent } from "../signup-form/signup-form.component";
+import { UserDataService } from '../service/user-data.service';
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [JsonPipe, LoginFormComponent],
+  imports: [JsonPipe, LoginFormComponent, SignupFormComponent],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
 export class UserComponent implements OnInit{
-  receivedData : any;
-
-  private apiService = inject(UserService)
+  
+  userLoggedIn: any;
+  private userData = inject(UserDataService);
+  typeOfUser : string = ''; 
+  message : string = 'Loading...';
 
 
   ngOnInit(): void {
-    this.apiService.getUsers('http://localhost:8080/Technico/resources/owner/getAllOwners').subscribe({
-      next: data => this.receivedData = data,
-      error: err => console.log(err),
-      complete: () => console.log('Stream complete...')
-    })
-      
+    this.userLoggedIn = this.userData.getData('userLoggedIn');
+    this.typeOfUser = this.userLoggedIn.typeOfUser;
+    this.message = 'Something went wrong...'
   }
 
 

@@ -24,10 +24,10 @@ export class UserService {
     )
   }
 
-  saveUser(url: string, userData: any) {
+  signUpUser(userData: any) {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');
-    return this.http.post(url, JSON.stringify(userData),  {headers: headers }).
+    return this.http.post(this.hostUrl + 'owner/saveOwner', JSON.stringify(userData),  {headers: headers }).
     pipe(
       retry(1),
       catchError(error => throwError(() => 'Something went wrong...'))
