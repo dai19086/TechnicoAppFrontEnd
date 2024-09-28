@@ -1,5 +1,8 @@
-@if (userLoggedIn) {
-    <app-user/>
-}@else {
-    <app-landing-page/>
-}
+<div class="container">
+    @if (userLoggedIn) {
+        <button (click)="logOut()" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-2">Log Out</button>
+        <app-user/>
+    }@else {
+        <app-landing-page/>
+    }
+</div>

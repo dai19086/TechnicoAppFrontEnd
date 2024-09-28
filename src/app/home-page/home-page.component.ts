@@ -19,6 +19,8 @@ export class HomePageComponent implements OnInit{
       this.userLoggedIn = this.userData.getData('userLoggedIn');
   }
 
-
-
+  logOut(){
+    this.userData.clearAllData();
+    this.userLoggedIn = this.userData.getData('userLoggedIn');
+  }
 }

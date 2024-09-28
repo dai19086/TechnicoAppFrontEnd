@@ -3,11 +3,13 @@ import { Component, inject, OnInit } from '@angular/core';
 import { LoginFormComponent } from "../login-form/login-form.component";
 import { SignupFormComponent } from "../signup-form/signup-form.component";
 import { UserDataService } from '../service/user-data.service';
+import { AdminComponent } from "../admin/admin.component";
+import { OwnerComponent } from "../owner/owner.component";
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [JsonPipe, LoginFormComponent, SignupFormComponent],
+  imports: [JsonPipe, LoginFormComponent, SignupFormComponent, AdminComponent, OwnerComponent],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })

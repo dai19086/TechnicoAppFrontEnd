@@ -1,8 +1,8 @@
 <div class="container alert alert-info">
   @if (typeOfUser == 'ADMIN') {
-    <p>ADMIN</p>
+    <app-admin/>
   }@else if (typeOfUser == 'OWNER') {
-    <p>OWNER</p>
+    <app-owner/>
   }@else {
     <p>{{ message }}</p>
   }
