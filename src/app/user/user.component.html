@@ -1,9 +1,17 @@
 <div class="container alert alert-info">
-  @if (typeOfUser == 'ADMIN') {
-    <app-admin/>
-  }@else if (typeOfUser == 'OWNER') {
-    <app-owner/>
-  }@else {
-    <p>{{ message }}</p>
-  }
+  <div class="container">
+    <button (click)="editUser()" class="btn btn-warning">Edit User Profile</button>
+  </div>
+  <div>
+    <h3>Welcome {{ userLoggedIn?.name }}!</h3>
+  </div>
+  <div>
+    @if (typeOfUser == 'ADMIN') {
+      <app-admin/>
+    }@else if (typeOfUser == 'OWNER') {
+      <app-owner/>
+    }@else {
+      <p>{{ message }}</p>
+    }
+  </div>
 </div>

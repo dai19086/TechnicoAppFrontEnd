@@ -1,0 +1,37 @@
+<div class="alert alert-warning">
+    <h5>Hi {{ userLoggedIn?.name }}!</h5><br>
+    <p>To edit your personal details please select edit on the field you want to change,</p>
+    <p>confirm to pass the change and save to to save the edit.</p>
+
+    <!-- address divider -->
+    <div class="container alert alert-info">
+        <h5>Address</h5>
+        @if (editAddress) {
+            <input type="text" [(ngModel)]="address" placeholder="Enter the new address here" class="form-control w-80">
+            <button (click)="closeEditSpace('address')" class="btn btn-success mt-1">Confirm</button>
+        }@else {
+            <pre>{{ userLoggedIn?.address }}</pre>
+            <button (click)="openEditSpace('address')" class="btn btn-warning">Edit</button>
+        }
+    </div>
+
+    <!-- phoneNumber divider -->
+    <div class="container alert alert-info">
+        <h5>Phone Number</h5>
+        @if (editPhoneNumber) {
+            <input type="text" [(ngModel)]="phoneNumber" placeholder="Enter the new phone number here" class="form-control w-80">
+            <button (click)="closeEditSpace('phoneNumber')" class="btn btn-success mt-1">Confirm</button>
+        }@else {
+            <pre>{{ userLoggedIn?.phoneNumber }}</pre>
+            <button (click)="openEditSpace('phoneNumber')" class="btn btn-warning">Edit</button>
+        }
+    </div>
+
+
+    <br>
+    <button (click)="saveChanges()" class="btn btn-primary position-absolute bottom-0 end-0 mb-2 me-2">Save</button>
+
+
+    
+
+</div>

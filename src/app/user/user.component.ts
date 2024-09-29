@@ -5,6 +5,7 @@ import { SignupFormComponent } from "../signup-form/signup-form.component";
 import { UserDataService } from '../service/user-data.service';
 import { AdminComponent } from "../admin/admin.component";
 import { OwnerComponent } from "../owner/owner.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -17,6 +18,7 @@ export class UserComponent implements OnInit{
   
   userLoggedIn: any;
   private userData = inject(UserDataService);
+  router = inject(Router);
   typeOfUser : string = ''; 
   message : string = 'Loading...';
 
@@ -25,6 +27,10 @@ export class UserComponent implements OnInit{
     this.userLoggedIn = this.userData.getData('userLoggedIn');
     this.typeOfUser = this.userLoggedIn.typeOfUser;
     this.message = 'Something went wrong...'
+  }
+
+  editUser(){
+    this.router.navigate(['editUser'])
   }
 
 
