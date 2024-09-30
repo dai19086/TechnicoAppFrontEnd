@@ -6,6 +6,7 @@ import { UserDataService } from '../service/user-data.service';
 import { AdminComponent } from "../admin/admin.component";
 import { OwnerComponent } from "../owner/owner.component";
 import { Router } from '@angular/router';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-user',
@@ -14,13 +15,14 @@ import { Router } from '@angular/router';
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
-export class UserComponent implements OnInit{
-  
+export class UserComponent implements OnInit {
+
   userLoggedIn: any;
   private userData = inject(UserDataService);
+  private apiService = inject(UserService);
   router = inject(Router);
-  typeOfUser : string = ''; 
-  message : string = 'Loading...';
+  typeOfUser: string = '';
+  message: string = 'Loading...';
 
 
   ngOnInit(): void {
@@ -29,8 +31,28 @@ export class UserComponent implements OnInit{
     this.message = 'Something went wrong...'
   }
 
-  editUser(){
+  editUser() {
     this.router.navigate(['editUser'])
+  }
+
+  deleteUser() {
+    const confirmed = confirm('Are you sure you want to delete your User profile?');
+    if (confirmed) {
+      this.apiService.deleteUser(this.userLoggedIn.ownerId).subscribe({
+        next: (response: any) => {
+          if (response) {
+            console.log('User ' + this.userLoggedIn.name + ' DELETED!')
+            this.userData.removeData('userLoggedIn');
+            this.router.navigate(['login']);
+          } else {
+            console.log('Response:' + response + ' Failed to delete user...');
+          }
+        },
+        error: err => console.log('ERROR WHILE DELETING THE USER....'),
+        complete: () => console.log('Delete stream complete...')
+      });
+    }
+
   }
 
 

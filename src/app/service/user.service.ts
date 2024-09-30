@@ -24,14 +24,18 @@ export class UserService {
     )
   }
 
-  saveUser(userData: any) {
+  saveUser(user: any) {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');
-    return this.http.post(this.hostUrl + 'owner/saveOwner', JSON.stringify(userData),  {headers: headers }).
+    return this.http.post(this.hostUrl + 'owner/saveOwner', JSON.stringify(user),  {headers: headers }).
     pipe(
       retry(1),
       catchError(error => throwError(() => 'Something went wrong...'))
     )
+  }
+
+  deleteUser(userId : number){
+    return this.http.delete(this.hostUrl + 'owner/deleteOwner/' + userId)
   }
 
   constructor() { }

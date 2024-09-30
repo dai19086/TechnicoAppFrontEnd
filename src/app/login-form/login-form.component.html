@@ -1,7 +1,7 @@
 <form [formGroup]="loginForm" (ngSubmit)="loginUser()" class="alert alert-primary">
     <h3 class="text-secondary">Log In Form</h3>
 
-    <input type="text" formControlName="email" placeholder="e-mail">
+    <input type="text" formControlName="email" placeholder="E-mail">
     @if(email!.hasError('required') && email?.touched){
         <div class=" text-danger">Email Required</div>
     }
@@ -10,7 +10,7 @@
     }
 
     <br><br>
-    <input type="text" formControlName="password" placeholder="enter a password">
+    <input type="text" formControlName="password" placeholder="Password">
     @if(password?.hasError('required') && password?.touched){
         <div class=" text-danger">Password is Required</div>
     }

@@ -14,4 +14,8 @@
       <p>{{ message }}</p>
     }
   </div>
+  <button (click)="deleteUser()" class="btn btn-warning btn-sm position-absolute bottom-0 end-0 mb-2 me-2"
+          onmouseover="this.classList.replace('btn-warning', 'btn-danger')" onmouseout="this.classList.replace('btn-danger', 'btn-warning')">
+    Delete User
+  </button>
 </div>

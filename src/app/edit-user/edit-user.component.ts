@@ -42,10 +42,10 @@ export class EditUserComponent implements OnInit{
   closeEditSpace(space : string){
     if (space == 'address'){
       this.editAddress = false
-      this.userLoggedIn.address = this.address;
+      if (this.address) this.userLoggedIn.address = this.address;
     }else if (space == 'phoneNumber'){
       this.editPhoneNumber = false
-      this.userLoggedIn.phoneNumber = this.phoneNumber;
+      if (this.phoneNumber) this.userLoggedIn.phoneNumber = this.phoneNumber;
     }
   }
 
