@@ -27,10 +27,14 @@
         }
     </div>
 
-
+    @if (errorMessage){
+        <div class="container alert alert-danger">
+            <h5>{{ errorMessage }}</h5>
+        </div>
+    }
     <br>
     <button (click)="saveChanges()" class="btn btn-primary position-absolute bottom-0 end-0 mb-2 me-2">Save</button>
-
+    
 
     
 

@@ -24,7 +24,7 @@ export class UserService {
     )
   }
 
-  signUpUser(userData: any) {
+  saveUser(userData: any) {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');
     return this.http.post(this.hostUrl + 'owner/saveOwner', JSON.stringify(userData),  {headers: headers }).

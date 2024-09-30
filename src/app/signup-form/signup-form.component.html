@@ -77,11 +77,10 @@
 
     <button [disabled]="signUpForm.invalid" class="btn btn-primary">{{ signUpButtonText }}</button>
 </form>
-<br>
-<p>Already Signed Up? <a [routerLink]="['/login']" routerLinkActive="active">Log In!</a></p>
-<br>
 @if (errorMessage){
-    <div class="container alert-danger">
-        <pre>{{ errorMessage }}</pre>
+    <div class="container alert alert-danger">
+        <h5>{{ errorMessage }}</h5>
     </div>
 }
+<p>Already Signed Up? <a [routerLink]="['/login']" routerLinkActive="active">Log In!</a></p>
+

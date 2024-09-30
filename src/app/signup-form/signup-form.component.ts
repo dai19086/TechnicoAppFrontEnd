@@ -73,13 +73,14 @@ export class SignupFormComponent implements OnInit {
     this.signUpButtonText = 'Signing Up...';
 
     if (this.signUpForm.valid) {
-      this.apiService.signUpUser(this.signUpForm.value).subscribe({
+      this.apiService.saveUser(this.signUpForm.value).subscribe({
         next: (response : any) => {
-          if (response.value === -1) {
-            this.errorMessage = 'Sign Up failed...';
-            
+          if (response == -1) {
+            this.errorMessage = 'Sign Up failed...The VAT or Email you entered are already used up.';
+            this.signUpButtonText = 'Sign Up';    
           }else{
-            this.errorMessage = response.value;
+            this.errorMessage = '';
+            this.signUpButtonText = 'Sign Up';  
             this.router.navigate(['login']);
           }
         },
