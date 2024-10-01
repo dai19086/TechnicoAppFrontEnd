@@ -3,6 +3,18 @@
     <p>To edit your personal details please select edit on the field you want to change,</p>
     <p>confirm to pass the change and save to to save the edit.</p>
 
+    <!-- VAT Number divider -->
+    <div class="container alert alert-info">
+        <h5>VAT Number</h5>
+        @if (editVat) {
+            <input type="text" [(ngModel)]="vatNumber" placeholder="Enter the new VAT Number here" class="form-control w-80">
+            <button (click)="closeEditSpace('vatNumber')" class="btn btn-success mt-1">Confirm</button>
+        }@else {
+            <pre>{{ userLoggedIn?.vatNumber }}</pre>
+            <button (click)="openEditSpace('vatNumber')" class="btn btn-warning">Edit</button>
+        }
+    </div>
+
     <!-- address divider -->
     <div class="container alert alert-info">
         <h5>Address</h5>

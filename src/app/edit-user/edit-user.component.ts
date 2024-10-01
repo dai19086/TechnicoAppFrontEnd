@@ -20,6 +20,8 @@ export class EditUserComponent implements OnInit{
 
   errorMessage : string = '';
 
+  vatNumber : string = '';
+  editVat : boolean = false;
   address : string = '';
   editAddress : boolean = false;
   phoneNumber : string = '';
@@ -31,21 +33,26 @@ export class EditUserComponent implements OnInit{
   }
 
   openEditSpace(space : string){
-    if (space == 'address'){
-      this.editAddress = true
+    if (space == 'vatNumber'){
+      this.editVat = true
     }else if (space == 'phoneNumber'){
       this.editPhoneNumber = true
+    }else if (space == 'address'){
+      this.editAddress = true
     }
 
   }
 
   closeEditSpace(space : string){
-    if (space == 'address'){
-      this.editAddress = false
-      if (this.address) this.userLoggedIn.address = this.address;
+    if (space == 'vatNumber'){
+      this.editVat = false
+      if (this.vatNumber) this.userLoggedIn.vatNumber = this.vatNumber;
     }else if (space == 'phoneNumber'){
       this.editPhoneNumber = false
       if (this.phoneNumber) this.userLoggedIn.phoneNumber = this.phoneNumber;
+    }else if (space == 'address'){
+      this.editAddress = false
+      if (this.address) this.userLoggedIn.address = this.address;
     }
   }
 
@@ -60,7 +67,10 @@ export class EditUserComponent implements OnInit{
           this.router.navigate(['home']);
         }
       },
-      error: err => console.error(`ERROR WHILE SAVING CHANGES... ${err}`),
+      error: err => {
+        console.error(`ERROR WHILE SAVING CHANGES... ${err}`);
+        this.errorMessage = 'Failed to save changes...';
+      },
       complete: () => console.log('Saving stream complete...')
     });
     

@@ -1,0 +1,9 @@
+<div class="container">
+    <h5>{{ repairIndex+1 }}) {{ currRepair?.typeOfRepair }} for Property ({{ currRepair?.property?.e9 }})</h5>
+    <p>[ at {{ currRepair?.property?.address }} ]</p>
+    <pre><b>Description:</b> {{ currRepair?.shortDescription }}</pre>
+    <pre><b>Status:</b> {{ currRepair?.status }}</pre>
+    <pre><b>Starting Date:</b> {{ currRepair?.actualStartDate? currRepair.actualStartDate : "-" }}</pre>
+    <pre><b>Completion Date:</b> {{ currRepair?.actualEndDate? currRepair.actualEndDate : "-" }}</pre>
+    <pre><b>Cost:</b> {{ currRepair?.proposedCost }}</pre>
+</div>

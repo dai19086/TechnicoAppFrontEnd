@@ -1,0 +1,56 @@
+<p>create-property works!</p>
+
+<form [formGroup]="propertyCreation" (ngSubmit)="addProperty()" class="alert alert-success">
+    <h3 class="text-secondary">Property Creation</h3>
+
+    <input type="text" formControlName="e9" placeholder="E9">
+    @if(e9!.hasError('required') && e9?.touched){
+        <div class=" text-danger">E9 is Required</div>
+    }
+    @if(e9?.hasError('pattern') && e9?.touched){
+        <div class=" text-danger">E9 must consist of numbers...</div>
+    }
+    <br><br>
+
+    <input type="text" formControlName="address" placeholder="Address">
+    @if(address!.hasError('required') && address?.touched){
+        <div class=" text-danger">Address is Required</div>
+    }
+    <br><br>
+
+    <input type="text" formControlName="yearOfConstruction" placeholder="Year Of Construction">
+    @if(yearOfConstruction!.hasError('required') && yearOfConstruction?.touched){
+        <div class=" text-danger">Year Of Construction is Required</div>
+    }
+    @if(yearOfConstruction?.hasError('pattern') && yearOfConstruction?.touched){
+        <div class=" text-danger">Year Of Construction must consist of numbers...</div>
+    }@if(yearOfConstruction?.hasError('minlength') && yearOfConstruction?.touched){
+        <div class=" text-danger">Year Of Construction must be 4 digits</div>
+    }@if(yearOfConstruction?.hasError('maxlength') && yearOfConstruction?.touched){
+        <div class=" text-danger">Year Of Construction must be 4 digits</div>
+    }
+    <br><br>
+
+    <select type="text" formControlName="typeOfProperty" class="form-select">
+        <option>Select Type of Property...</option>
+        @for (type of propertyTypes; track $index) {
+            <option>{{ type }}</option>
+        }
+    </select>
+    @if(typeOfProperty?.hasError('pattern') && typeOfProperty?.touched){
+        <div class=" text-danger">Please select a User Type...</div>
+        }
+    <br><br>
+
+    <button [disabled]="propertyCreation.invalid" class="btn btn-primary">{{ savePropertyButtonText }}</button>
+</form>
+@if (errorMessage){
+    <div class="container alert alert-danger">
+        <h5>{{ errorMessage }}</h5>
+    </div>
+}
+@if (successfulPropertySave) {
+    <div class="container alert alert-info text-success">
+        <h3>Property Saved Successfully!!!</h3>
+    </div>
+}

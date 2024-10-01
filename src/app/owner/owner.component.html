@@ -1,1 +1,71 @@
-<p>owner works!</p>
+<div class="container">
+    <button (click)="showPropertyScreen()" class="btn btn-success">Add Property</button>
+    <button (click)="showUnansweredRepairs()" class="btn btn-secondary ms-1">Unanswered Repairs</button>
+    <button (click)="showAllUserRepairs()" class="btn btn-primary ms-1">My Repairs</button>
+    <div class="container mt-3">
+        <!-- If "Add Property" Was Chosen -->
+        @if (propertyScreenVisible) {
+            <app-create-property />
+        }
+        <!-- If "Unanswered Repairs" Was Chosen -->
+        @if (unansweredRepairsVisible) {
+        <div class="alert alert-secondary">
+            <h4>Unanswered Repairs ( {{ unansweredRepairsList?.length }} )</h4>
+            <hr>
+            <!-- Check if there are any unanswered Repairs in the list to show -->
+            @if (unansweredRepairsList.length>0) {
+                <!-- Iterate the list -->
+                @for (repair of unansweredRepairsList; track $index) {
+                    <!-- Choose Repair -->
+                    @if ( $index == currUnanRepair ) {
+                        <app-unanswered-repair [currRepair]="repair" [repairIndex]="$index" (answer)="getAnswer($event)"/>
+                        <!-- Next and Previous Buttons -->
+                        <div class="d-flex justify-content-around w-100 mt-3">
+                            <!-- if first repair hide Previous -->
+                            @if ( $index > 0) {
+                                <button (click)="prev('Unanswered')" class="btn btn-info btn-sm">&larr; Previous</button>
+                            }
+                            <!-- if last repair hide Next -->
+                            @if ( $index < unansweredRepairsList.length-1 ) {
+                                <button (click)="next('Unanswered')" class="btn btn-primary btn-sm">Next &rarr;</button>
+                            }
+                        </div>
+                    }
+                }
+            }@else {
+                <h5>It seems like there are no unanswered Repairs!</h5>
+            }
+            
+        </div>
+        }
+        <!-- If "My Repairs" Was Chosen -->
+        @if (userRepairsVisible) {
+        <div class="alert alert-primary">
+            <h4>User Repairs ( {{ ownerPropertyRepairsList?.length }} )</h4>
+            <hr>
+            <!-- Check if there are any Repairs for the Owner's Properties in the list to show -->
+            @if (ownerPropertyRepairsList.length>0) {
+                @for (repair of ownerPropertyRepairsList; track $index) {
+                    @if ( $index == currUserRepair ) {
+                        <app-user-repairs [currRepair]="repair" [repairIndex]="$index"/>
+                        <!-- Next and Previous Buttons -->
+                        <div class="d-flex justify-content-around w-100 mt-3">
+                            <!-- if first repair hide Previous -->
+                            @if ( $index > 0) {
+                                <button (click)="prev('MyRepairs')" class="btn btn-info btn-sm">&larr; Previous</button>
+                            }
+                            <!-- if last repair hide Next -->
+                            @if ( $index < ownerPropertyRepairsList.length-1 ) {
+                                <button (click)="next('MyRepairs')" class="btn btn-primary btn-sm">Next &rarr;</button>
+                            }
+                        </div>
+                    }
+                }
+            }@else {
+                <h5>It seems like there are no Repairs for your Properties!</h5>
+            }
+        </div>
+        }
+    </div>
+    <br><br><br>
+</div>

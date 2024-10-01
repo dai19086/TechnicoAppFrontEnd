@@ -1,0 +1,14 @@
+<div class="container">
+    <h5>{{ repairIndex+1 }}) {{ currRepair?.typeOfRepair }} for Property ({{ currRepair?.property?.e9 }})</h5>
+    <p>[ at {{ currRepair?.property?.address }} ]</p>
+    <pre><b>Description:</b> {{ currRepair?.shortDescription }}</pre>
+    <pre><b>Proposed Starting Date:</b> {{ currRepair?.proposedStartDate }}</pre>
+    <pre><b>Proposed Completion Date:</b> {{ currRepair?.proposedEndDate }}</pre>
+    <pre><b>Cost:</b> {{ currRepair?.proposedCost }}</pre>
+    <br>
+    <button (click)="getAnswer('ACCEPT')" class="btn btn-success btn-sm">ACCEPT</button>
+    <button (click)="getAnswer('DECLINE')" class="btn btn-danger btn-sm ms-2">DECLINE</button>
+    @if (errorMessage){
+        <p>{{ errorMessage }}</p>
+    }
+</div>
