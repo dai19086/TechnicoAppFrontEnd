@@ -5,5 +5,5 @@
     <pre><b>Status:</b> {{ currRepair?.status }}</pre>
     <pre><b>Starting Date:</b> {{ currRepair?.actualStartDate? currRepair.actualStartDate : "-" }}</pre>
     <pre><b>Completion Date:</b> {{ currRepair?.actualEndDate? currRepair.actualEndDate : "-" }}</pre>
-    <pre><b>Cost:</b> {{ currRepair?.proposedCost }}</pre>
+    <pre><b>Cost:</b> {{ currRepair?.proposedCost | currency:'EUR'}}</pre>
 </div>

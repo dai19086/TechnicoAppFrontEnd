@@ -1,10 +1,11 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { UserService } from '../../service/user.service';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-unanswered-repair',
   standalone: true,
-  imports: [],
+  imports: [CurrencyPipe],
   templateUrl: './unanswered-repair.component.html',
   styleUrl: './unanswered-repair.component.css'
 })
