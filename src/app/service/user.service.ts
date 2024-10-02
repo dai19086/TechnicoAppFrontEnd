@@ -14,6 +14,11 @@ export class UserService {
     return this.http.get(url);
   }
 
+  searchUser(userVat : string){
+    console.log(this.hostUrl + 'owner/getOwnerByVat/' + userVat)
+    return this.http.get(this.hostUrl + 'owner/getOwnerByVat/' + userVat);
+  }
+
   logIn(userData: any){
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');
@@ -38,6 +43,10 @@ export class UserService {
     return this.http.delete(this.hostUrl + 'owner/deleteOwner/' + userId);
   }
 
+  searchProperty(e9: string){
+    return this.http.get(this.hostUrl + 'property/getPropertyByE9/' + e9);
+  }
+
   saveProperty(property: any) {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');
@@ -46,6 +55,10 @@ export class UserService {
       retry(1),
       catchError(error => throwError(() => 'Something went wrong while saving the Property...'))
     )
+  }
+
+  deleteProperty(propertyId : number){
+    return this.http.delete(this.hostUrl + 'property/deleteProperty/' + propertyId);
   }
 
   getUserUnansweredRepairs(userVat : number){

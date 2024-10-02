@@ -1,6 +1,6 @@
 <div class="container alert alert-info mt-1">
   <div class="container">
-    <button (click)="editUser()" class="btn btn-warning">Edit User Profile</button>
+    <button (click)="editUser()" class="btn btn-warning">Edit My Profile</button>
   </div>
   <div>
     <h3>Welcome {{ userLoggedIn?.name }}!</h3>
@@ -16,6 +16,6 @@
   </div>
   <button (click)="deleteUser()" class="btn btn-warning btn-sm position-absolute bottom-0 end-0 mb-2 me-2"
           onmouseover="this.classList.replace('btn-warning', 'btn-danger')" onmouseout="this.classList.replace('btn-danger', 'btn-warning')">
-    Delete User
+    Delete My Profile
   </button>
 </div>

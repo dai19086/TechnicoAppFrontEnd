@@ -1,5 +1,3 @@
-<p>create-property works!</p>
-
 <form [formGroup]="propertyCreation" (ngSubmit)="addProperty()" class="alert alert-success">
     <h3 class="text-secondary">Property Creation</h3>
 
@@ -38,7 +36,7 @@
         }
     </select>
     @if(typeOfProperty?.hasError('pattern') && typeOfProperty?.touched){
-        <div class=" text-danger">Please select a User Type...</div>
+        <div class=" text-danger">Please select a Property Type...</div>
         }
     <br><br>
 

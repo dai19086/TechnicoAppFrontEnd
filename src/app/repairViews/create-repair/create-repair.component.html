@@ -1,0 +1,54 @@
+<form [formGroup]="repairCreation" (ngSubmit)="addRepair()" class="alert alert-warning">
+    <h3 class="text-secondary">Repair Creation</h3>
+
+    <select type="text" formControlName="typeOfRepair" class="form-select">
+        <option>Select Type of Repair...</option>
+        @for (type of repairTypes; track $index) {
+            <option>{{ type }}</option>
+        }
+    </select>
+    @if(typeOfRepair?.hasError('pattern') && typeOfRepair?.touched){
+        <div class=" text-danger">Please select a Repair Type...</div>
+        }
+    <br>
+
+    <input type="text" formControlName="shortDescription" placeholder="Short Description">
+    @if(shortDescription!.hasError('required') && shortDescription?.touched){
+        <div class=" text-danger">Add a Short Description for  the Repair</div>
+    }
+    <br><br>
+
+    <textarea type="text" formControlName="workDescription" placeholder="Work Description"  rows="3" cols="40">Description</textarea>
+    @if(workDescription!.hasError('required') && workDescription?.touched){
+        <div class=" text-danger">Add the Repair's Work Description</div>
+    }
+    <br><br>
+
+    <input type="text" formControlName="proposedStartDate" placeholder="Estimated Start Date">
+    @if(proposedStartDate!.hasError('required') && proposedStartDate?.touched){
+        <div class=" text-danger">Propose the Repair's Starting Date</div>
+    }
+    <br><br>
+
+    <input type="text" formControlName="proposedEndDate" placeholder="Estimated Completion Date">
+    @if(proposedEndDate!.hasError('required') && proposedEndDate?.touched){
+        <div class=" text-danger">Propose the Repair's Estimated Completion Date</div>
+    }
+    <br><br>
+
+    <input type="text" formControlName="proposedCost" placeholder="Estimated Cost">
+    @if(proposedCost!.hasError('required') && proposedCost?.touched){
+        <div class=" text-danger">Propose the Repair's Estimated Cost</div>
+    }
+    @if(proposedCost?.hasError('pattern') && proposedCost?.touched){
+        <div class=" text-danger">Cost can only be numerical...</div>
+        }
+    <br><br>
+
+    <button [disabled]="repairCreation.invalid" class="btn btn-success">Propose Repair</button>
+</form>
+@if (errorMessage) {
+    <div class="alert alert-danger">
+        <h5>{{ errorMessage }}</h5>
+    </div>
+}

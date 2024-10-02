@@ -1,1 +1,69 @@
-<p>admin works!</p>
+<div class="container">
+    @if (viewUserSearch) {
+    <form [formGroup]="findOwnerForm" (ngSubmit)="searchUser()" class="alert alert-secondary">
+        <h3>Find User</h3>
+        <input type="text" formControlName="vatNumber" placeholder="VAT number">
+        @if(vatNumber!.hasError('required') && vatNumber?.touched){
+        <div class=" text-danger">VAT Number is Required</div>
+        }
+        @if(vatNumber?.hasError('pattern') && vatNumber?.touched){
+        <div class=" text-danger">VAT Number must consist of numbers...</div>
+        }
+        <button [disabled]="findOwnerForm.invalid" class="btn btn-secondary ms-1">Search User</button>
+    </form>
+    @if (userFound) {
+    <div class="d-flex">
+        <div class="flex-grow-1 alert alert-secondary p-1">
+            <div class="container">
+                <p><b><u>OWNER DETAILS:</u></b></p>
+                <p><b>VAT Number:</b> {{ userFound?.vatNumber }}</p>
+                <p><b>Full name:</b> {{ userFound?.name }} {{ userFound?.surname }}</p>
+                <p><b>Address:</b> {{ userFound?.address }}</p>
+                <p><b>Phone Number:</b> {{ userFound?.phoneNumber }}</p>
+                <p><b>Email:</b> {{ userFound?.email }}</p>
+            </div>
+        </div>
+    </div>
+    <button (click)="deleteOwner()" class="btn btn-danger">Delete This Owner</button>
+    }@else {
+    <h5>{{ ownerErrorMsg }}</h5>
+    }
+    }@else {
+    <button (click)="openSearch('User')" class="btn btn-secondary me-1 mb-1">Search User</button>
+    }
+
+
+    @if (viewPropertySearch) {
+    <form [formGroup]="findPropertyForm" (ngSubmit)="searchProperty()" class="alert alert-success">
+        <h3>Find Property</h3>
+        <input type="text" formControlName="e9" placeholder="E9">
+        @if(e9!.hasError('required') && e9?.touched){
+        <div class=" text-danger">E9 is Required</div>
+        }
+        @if(e9?.hasError('pattern') && e9?.touched){
+        <div class=" text-danger">E9 must consist of numbers...</div>
+        }
+        <button [disabled]="findPropertyForm.invalid" class="btn btn-success ms-1">Search Property</button>
+    </form>
+    @if (propertyFound) {
+    <div class="d-flex">
+        <div class="flex-grow-1 alert alert-success p-1">
+            <div class="container">
+                <p><b><u>PROPERTY DETAILS:</u></b></p>
+                <p><b>E9:</b> {{ propertyFound?.e9 }}</p>
+                <p><b>Address:</b> {{ propertyFound?.address }}</p>
+                <p><b>Constructed:</b> {{ propertyFound?.yearOfConstruction }}</p>
+                <p><b>Property Type:</b> {{ propertyFound?.typeOfProperty }}</p>
+            </div>
+        </div>
+    </div>
+    <button (click)="deleteProperty()" class="btn btn-danger me-1">Delete This Property</button>
+    <button (click)="addRepair()" class="btn btn-success ms-1">Add a Repair for this Property</button>
+    }@else {
+    <h5>{{ propertyErrorMsg }}</h5>
+    }
+    }@else {
+    <button (click)="openSearch('Property')" class="btn btn-success p-1 ms-1">Search Property</button>
+    }
+    <br><br><br>
+</div>

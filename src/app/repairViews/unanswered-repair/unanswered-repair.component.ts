@@ -25,7 +25,7 @@ export class UnansweredRepairComponent {
       this.currRepair.actualStartDate = this.currRepair.proposedStartDate;
       this.currRepair.actualEndDate = this.currRepair.proposedEndDate;
     } else {
-      this.currRepair.ownerAcceptance = false;
+      this.currRepair.ownerAcceptance = true;
       this.currRepair.status = 'DECLINED';
       this.currRepair.actualStartDate = null;
       this.currRepair.actualEndDate = null;
