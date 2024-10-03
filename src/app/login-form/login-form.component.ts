@@ -13,20 +13,21 @@ import { UserDataService } from '../service/user-data.service';
   styleUrl: './login-form.component.css'
 })
 export class LoginFormComponent  implements OnInit {
-
+  //fields for Log In
   loginForm!: FormGroup;
   userLoggedIn: any;
   logInButtonText = 'Log In';
   errorMessage: string = '';
-
-  fb = inject(FormBuilder);
+  //inject services
+  private fb = inject(FormBuilder);
   private apiService = inject(UserService);
-  router = inject(Router);
+  private router = inject(Router);
   private userData = inject(UserDataService);
 
-  minLen : number = 4;
+  minLen : number = 4;  //password minimum length
 
   ngOnInit(): void {
+    //initialize the log in form
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(this.minLen), Validators.pattern("^[a-zA-Z0-9@]+$")]]
@@ -41,23 +42,33 @@ export class LoginFormComponent  implements OnInit {
     return this.loginForm.get('password')
   }
 
+  /**
+   * Method for Log In Form.
+   * When the Log In Button is click, change the button's text to signal that the log in attempt is underway.
+   * If all the fields are filled  and valid,
+   * Initiate log in attempt by calling the apiService method.
+   * If everything's okay hide the error message.
+   *  Load the service userData with the information of the logged in user.
+   *  Redirect to the home (User) page.
+   * If (id=-1) it means something went wrong with finding the given values in at the server.
+   *  the returned user name should contain the error message. And since it wasn't successful empty the user.
+   * If another error was thrown by the server write it in the console.
+   * Reset the login button's text.
+   */
   loginUser() {
     this.logInButtonText = 'Logging In...';
 
-    //if the form is valid and the necessary fields are filled
     if(this.email && this.password && this.loginForm.valid){
-      //initiate log in attempt
+      
       this.apiService.logIn(this.loginForm.value).subscribe({
         next: response => {
           this.userLoggedIn = response;
-          //if (id=-1) it means something went wrong with the logging in at the server
+          
           if(this.userLoggedIn.ownerId == -1){
-              //the name should contain the error message
               this.errorMessage = this.userLoggedIn.name;
-              //since it wasn't successful empty the user
               this.userLoggedIn = null;
           }else {
-            //if everything's okay hide the error message
+            
             this.errorMessage = '';
             this.userData.setData('userLoggedIn', this.userLoggedIn);
             this.router.navigate(['home']);

@@ -12,13 +12,20 @@ import { LandingPageComponent } from "../landing-page/landing-page.component";
 })
 export class HomePageComponent implements OnInit{
 
+  //field  retrieve the logged in user if any
   userLoggedIn: any;
+  //inject service that contains the logged in user
   private userData = inject(UserDataService);
 
   ngOnInit(): void {
-      this.userLoggedIn = this.userData.getData('userLoggedIn');
+    //retrieve the userLoggedIn if there is any
+    this.userLoggedIn = this.userData.getData('userLoggedIn');
   }
 
+  /**
+   * Method for log out button.
+   * Cleans the userData service's data and reinitiallizes the  userLoggedIn back to empty.
+   */
   logOut(){
     this.userData.clearAllData();
     this.userLoggedIn = this.userData.getData('userLoggedIn');

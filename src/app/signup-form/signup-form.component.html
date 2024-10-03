@@ -1,5 +1,6 @@
+<!-- Sign Up Page -->
 <form [formGroup]="signUpForm" (ngSubmit)="signUpUser()" class="alert alert-success">
-    <h3 class="text-secondary">Sign Up Form</h3>
+    <h3 class="text-secondary">Sign Up</h3>
 
     <input type="text" formControlName="vatNumber" placeholder="VAT number">
     @if(vatNumber!.hasError('required') && vatNumber?.touched){
@@ -77,10 +78,12 @@
 
     <button [disabled]="signUpForm.invalid" class="btn btn-primary">{{ signUpButtonText }}</button>
 </form>
+<!-- Error Message Display -->
 @if (errorMessage){
     <div class="container alert alert-danger">
         <h5>{{ errorMessage }}</h5>
     </div>
 }
+<!-- Link to the Log In Page -->
 <p>Already Signed Up? <a [routerLink]="['/login']" routerLinkActive="active">Log In!</a></p>
 

@@ -6,19 +6,18 @@ import { catchError, retry, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-
+  //inject HttpClient
   http = inject(HttpClient)
+  //set standard url without the endpoints part
   hostUrl = 'http://localhost:8080/Technico/resources/';
 
-  getUsers(url: string) {
-    return this.http.get(url);
-  }
-
+  //GET OWNER BY VAT
   searchUser(userVat : string){
     console.log(this.hostUrl + 'owner/getOwnerByVat/' + userVat)
     return this.http.get(this.hostUrl + 'owner/getOwnerByVat/' + userVat);
   }
 
+  //POST LOGIN
   logIn(userData: any){
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');
@@ -29,6 +28,7 @@ export class UserService {
     )
   }
 
+  //POST SAVE OWNER
   saveUser(user: any) {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');
@@ -39,14 +39,17 @@ export class UserService {
     )
   }
 
+  //DELETE OWNER BY ID
   deleteUser(userId : number){
     return this.http.delete(this.hostUrl + 'owner/deleteOwner/' + userId);
   }
 
+  //GET PROPERTY BY E9
   searchProperty(e9: string){
     return this.http.get(this.hostUrl + 'property/getPropertyByE9/' + e9);
   }
 
+  //POST SAVE PROPERTY
   saveProperty(property: any) {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');
@@ -57,14 +60,17 @@ export class UserService {
     )
   }
 
+  //DELETE PROPERTY BY ID
   deleteProperty(propertyId : number){
     return this.http.delete(this.hostUrl + 'property/deleteProperty/' + propertyId);
   }
 
+  //GET UNANSWERED REPAIRS FOR USER WITH VAT
   getUserUnansweredRepairs(userVat : number){
     return this.http.get(this.hostUrl + 'repair/getAllUnansweredRepairs/' + userVat);
   }
 
+  //GET ALL REPAIRS FOR USER WITH VAT
   getUserRepairs (userVat : number){
     if (!userVat) {
       console.log('WARNING!!!')
@@ -73,6 +79,7 @@ export class UserService {
     return this.http.get(this.hostUrl + 'repair/getAllRepairs/' + userVat);
   }
 
+  //POST SAVE REPAIR
   saveRepair(repair : any){
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');

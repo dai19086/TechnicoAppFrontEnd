@@ -11,6 +11,10 @@ import { Router } from '@angular/router';
 export class FileNotFoundComponent {
   router = inject(Router);
 
+  /**
+   * Method for Go to Home button.
+   * Redirects the user back to the home page.
+   */
   goHome(){
     this.router.navigate(['home'])
   }

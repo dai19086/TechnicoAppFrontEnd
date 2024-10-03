@@ -13,14 +13,14 @@ import { UserDataService } from '../service/user-data.service';
   styleUrl: './create-property.component.css'
 })
 export class CreatePropertyComponent implements OnInit{
-
+  //for Property Creation
   propertyCreation!: FormGroup;
   errorMessage: string = '';
   successfulPropertySave = false;
   savePropertyButtonText = 'Add Property'
   propertyTypes: string[] = ['DETACHED_HOUSE', 'MAISONETTE', 'APARTMENT_BUILDING'];
 
-  fb = inject(FormBuilder)
+  private fb = inject(FormBuilder)
   private apiService = inject(UserService);
   private userData = inject(UserDataService);
 
@@ -50,6 +50,15 @@ export class CreatePropertyComponent implements OnInit{
     return this.propertyCreation.get('typeOfProperty');
   }
 
+  /**
+   * Method for Add Property form.
+   * When the form's button is clicked, if the form is valid,
+   * calls the apiService to save the Property created in the form.
+   * If the new Property was saved successfully let the user know.
+   * If the Property wasn't submitted because of back end validations the response should be -1
+   *  This should mean that the unique field E9 is already used so let the user know.
+   * If something went wrong in the server and an error was thrown writes it to the console.
+   */
   addProperty(){
     this.savePropertyButtonText = 'Saving Property...'
 
@@ -57,6 +66,7 @@ export class CreatePropertyComponent implements OnInit{
       this.apiService.saveProperty(this.propertyCreation.value).subscribe({
         next: (response : any) => {
           if (response == -1) {
+            this.successfulPropertySave = false;
             this.errorMessage = 'Property save failed...The E9 you entered is already used up.';
             this.savePropertyButtonText = 'Save Property';    
           }else{

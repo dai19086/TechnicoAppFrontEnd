@@ -10,13 +10,21 @@ import { Router } from '@angular/router';
 })
 export class LandingPageComponent {
 
-  
-  router = inject(Router);
+  //inject router service
+  private router = inject(Router);
 
+  /**
+   * Method for Log In button.
+   * Redirects the user to the Log In Page.
+   */
   goLogIn(){
     this.router.navigate(['login'])
   }
 
+  /**
+   * Method for Sign Up button.
+   * Redirects the user to the Sign Up Page.
+   */
   goSignUp(){
     this.router.navigate(['signup'])
   }

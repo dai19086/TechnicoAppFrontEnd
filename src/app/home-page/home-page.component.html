@@ -1,8 +1,13 @@
 <div class="container">
     @if (userLoggedIn) {
+        <!-- If a User is Logged In -->
+            <!-- Display the Log Out button -->
         <button (click)="logOut()" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-2">Log Out</button>
+            <!-- Display the User Screen -->
         <app-user/>
     }@else {
+        <!-- If userLoggedIn is empty -->
+            <!-- Show Landing Page Screen -->
         <app-landing-page/>
     }
 </div>

@@ -1,5 +1,6 @@
+<!-- Log In Page -->
 <form [formGroup]="loginForm" (ngSubmit)="loginUser()" class="alert alert-primary">
-    <h3 class="text-secondary">Log In Form</h3>
+    <h3 class="text-secondary">Log In</h3>
 
     <input type="text" formControlName="email" placeholder="E-mail">
     @if(email!.hasError('required') && email?.touched){
@@ -26,8 +27,10 @@
     <button [disabled]="loginForm.invalid" class="btn btn-success">{{ logInButtonText }}</button>
 </form>
 <br>
+<!-- Link to the Sign In Page -->
 <p>Don't have a profile yet? <a [routerLink]="['/signup']" routerLinkActive="active">Sign Up!</a></p>
 <br>
+<!-- Error Message Display -->
 @if (errorMessage){
     <div class="container alert-danger">
         <pre>{{ errorMessage }}</pre>

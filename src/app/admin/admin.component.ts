@@ -11,24 +11,23 @@ import { Router } from '@angular/router';
   styleUrl: './admin.component.css'
 })
 export class AdminComponent implements OnInit {
+  //for User Search
   viewUserSearch: boolean = false;
   findOwnerForm!: FormGroup;
   ownerErrorMsg: string = '';
   userFound: any;
-
+  //for Property Search
   viewPropertySearch: boolean = false;
   findPropertyForm!: FormGroup;
   propertyErrorMsg: string = '';
   propertyFound: any;
-
-
-  ownerPropertiesVisible: boolean = false;
-
-  fb = inject(FormBuilder);
+  //inject services
+  private fb = inject(FormBuilder);
   private apiService = inject(UserService);
-  router = inject(Router);
+  private router = inject(Router);
 
   ngOnInit(): void {
+    //initialize forms
     this.findOwnerForm = this.fb.group({
       vatNumber: ['', [Validators.required, Validators.pattern("^[0-9]+$")]]
     });
@@ -36,7 +35,7 @@ export class AdminComponent implements OnInit {
       e9: ['', [Validators.required, Validators.pattern("^[0-9]+$")]]
     });
   }
-
+  
   get vatNumber() {
     return this.findOwnerForm.get('vatNumber');
   }
@@ -45,6 +44,10 @@ export class AdminComponent implements OnInit {
     return this.findPropertyForm.get('e9');
   }
 
+  /**
+   * Manipulates the values of the view flags to display the appropriate form
+   * @param choice String that identifies which button called the method
+   */
   openSearch(choice: string) {
     if (choice == 'User') {
       this.viewUserSearch = true;
@@ -56,6 +59,10 @@ export class AdminComponent implements OnInit {
     }
   }
 
+  /**
+   * Method for Search User form.
+   * Calls the apiService to get the User with the given VAT number
+   */
   searchUser() {
     if (this.findOwnerForm.valid) {
       this.apiService.searchUser(this.vatNumber?.value).subscribe({
@@ -78,6 +85,10 @@ export class AdminComponent implements OnInit {
     }
   }
 
+  /**
+   * Method for Search Property form.
+   * Calls the apiService to get the Property with the given E9
+   */
   searchProperty() {
     if (this.findPropertyForm.valid) {
       this.apiService.searchProperty(this.e9?.value).subscribe({
@@ -100,6 +111,11 @@ export class AdminComponent implements OnInit {
     }
   }
 
+  /**
+   * Method for Delete User button.
+   * After asking for confirmation from the admin,
+   * calls the apiService to delete the userFound by userId.
+   */
   deleteOwner() {
     if (this.userFound.ownerId && this.userFound.ownerId != -1) {
       const confirmed = confirm('Are you sure you want to delete User ' + this.userFound.name + ' ' + this.userFound.surname + '?');
@@ -120,6 +136,11 @@ export class AdminComponent implements OnInit {
     }
   }
 
+  /**
+   * Method for Delete Property button.
+   * After asking for confirmation from the admin,
+   * calls the apiService to delete the propertyFound by propertyId.
+   */
   deleteProperty() {
     if (this.propertyFound.propertyId && this.propertyFound.propertyId != -1) {
       const confirmed = confirm('Are you sure you want to delete this Property?');
@@ -140,6 +161,11 @@ export class AdminComponent implements OnInit {
     }
   }
 
+  /**
+   * Method for (Add a Repair for this Property) button.
+   * If a Property is found navigate to the addRepair page to add the repair
+   * and pass the found property as query parameter.
+   */
   addRepair() {
     if (this.propertyFound) {
       this.router.navigate(['addRepair'],{queryParams:{ propertyToRepair: JSON.stringify(this.propertyFound) }});

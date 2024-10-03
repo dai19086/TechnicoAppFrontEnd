@@ -10,15 +10,29 @@ import { CurrencyPipe } from '@angular/common';
   styleUrl: './unanswered-repair.component.css'
 })
 export class UnansweredRepairComponent {
-  @Input() currRepair: any;
-  @Input() repairIndex!: number;
+  //Inputs from owner component (parent)
+  @Input() currRepair: any; //the repair to display
+  @Input() repairIndex!: number;  //the index of the repair in the unanswered repairs list
 
+  //Output event that will contain the index of the answered repair in the unanswered repairs list
   @Output() answer: EventEmitter<number> = new EventEmitter<number>();
 
+  //inject API service
   private apiService = inject(UserService);
 
-  errorMessage : string = '';
+  errorMessage : string = ''; //initialize error message
 
+  /**
+   * Method of the ACCEPT and DECLINE buttons
+   * Modifies the repair  according to the user's answer
+   * and calls the apiService to save the changes to the modified repair.
+   * If it couldn't save the repair shows error message.
+   * If the repair was saved successfully empty the error message and
+   *  emit the output event for the parent (owner) to  handle.
+   * If an error occured in the back end and an exception was thrown write it in the console.
+   * @param ans String that specifies which button called the method
+   * ('ACCEPT') accepts the  repair, anything else rejects it.
+   */
   getAnswer(ans: string) {
     if (ans == 'ACCEPT') {
       this.currRepair.ownerAcceptance = true;

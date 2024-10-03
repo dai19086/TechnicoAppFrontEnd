@@ -1,11 +1,14 @@
+<!-- User Page -->
 <div class="container alert alert-info mt-1">
   <div class="container">
     <button (click)="editUser()" class="btn btn-warning">Edit My Profile</button>
   </div>
   <div>
+    <!-- Show Custom Welcome Message -->
     <h3>Welcome {{ userLoggedIn?.name }}!</h3>
   </div>
   <div>
+    <!-- Show the correct page depending on the type  of the Logged In User -->
     @if (typeOfUser == 'ADMIN') {
       <app-admin/>
     }@else if (typeOfUser == 'OWNER') {

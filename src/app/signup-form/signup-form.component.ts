@@ -12,19 +12,21 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
   styleUrl: './signup-form.component.css'
 })
 export class SignupFormComponent implements OnInit {
+  //fields for Sign Up
   signUpForm!: FormGroup;
   errorMessage: string = '';
   signUpButtonText = 'Sign Up'
   types: string[] = ['OWNER', 'ADMIN'];
-
-  fb = inject(FormBuilder)
+  //inject services
+  private fb = inject(FormBuilder)
   private apiService = inject(UserService);
-  router = inject(Router);
+  private router = inject(Router);
 
-  minLen: number = 4;
+  minLen: number = 4; //password minimum length
 
 
   ngOnInit(): void {
+    //initialize the sign up form
     this.signUpForm = this.fb.group({
       vatNumber: ['', [Validators.required, Validators.pattern("^[0-9]+$")]],
       name: ['', [Validators.required, Validators.pattern("^[a-zA-Z\u0370-\u03FF]+$")]],
@@ -69,6 +71,19 @@ export class SignupFormComponent implements OnInit {
     return this.signUpForm.get('typeOfUser')
   }
 
+  /**
+   * Method for Sign Up Form.
+   * When the Sign Up Button is click, change the button's text to signal that the sign up process is underway.
+   * If the form is valid,
+   * Call the apiService method to Sign Up.
+   * If everything's okay hide the error message.
+   *  Reset the button's text.
+   *  Redirect to the Log In page for the user to log in the app.
+   * If (response = -1) it means something went wrong while saving the new userin at the server.
+   *  This should be caused by the Vat or Email given, that are unique fields, being used by another already signed up user.
+   *  Let user know and reset the button's text
+   * If another error was thrown by the server write it in the console.
+   */
   signUpUser() {
     this.signUpButtonText = 'Signing Up...';
 
